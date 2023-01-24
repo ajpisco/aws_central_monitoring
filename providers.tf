@@ -9,10 +9,4 @@ provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::${var.account_ids.sub_account1.id}:role/assumed_role"
   }
-
-  default_tags {
-    tags = {
-      APMID = var.apm_id
-    }
-  }
 }
