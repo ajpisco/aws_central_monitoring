@@ -1,6 +1,6 @@
 resource "aws_athena_database" "central_flow_logs" {
   name   = "vpc_central_flow_logs_db"
-  bucket = aws_s3_bucket.central_flow_logs.bucket
+  bucket = var.s3_bucket_name
 }
 
 resource "aws_glue_catalog_table" "central_flow_logs" {
@@ -35,7 +35,7 @@ resource "aws_glue_catalog_table" "central_flow_logs" {
   }
 
   storage_descriptor {
-    location      = "s3://${aws_s3_bucket.central_flow_logs.bucket}/AWSLogs"
+    location      = "s3://${var.s3_bucket_name}/AWSLogs"
     input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
 
