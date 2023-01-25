@@ -17,9 +17,9 @@ resource "aws_lambda_function" "central_flow_logs_athena_partition" {
   environment {
     variables = {
       TABLE_NAME         = aws_glue_catalog_table.central_flow_logs.name
-      S3_OUTPUT          = aws_s3_bucket.central_flow_logs.bucket
+      S3_OUTPUT          = var.s3_bucket_name
       S3_ACCOUNT_PREFIX  = ""
-      S3_BUCKET_FLOW_LOG = aws_s3_bucket.central_flow_logs.bucket
+      S3_BUCKET_FLOW_LOG = var.s3_bucket_name
       DATABASE           = aws_athena_database.central_flow_logs.name
       FREQUENCY          = "Daily"
     }
@@ -148,7 +148,7 @@ resource "aws_lambda_function" "central_flow_logs_athena_view" {
   environment {
     variables = {
       TABLE_NAME = aws_glue_catalog_table.central_flow_logs.name
-      S3_OUTPUT  = aws_s3_bucket.central_flow_logs.bucket
+      S3_OUTPUT  = var.s3_bucket_name
       DATABASE   = aws_athena_database.central_flow_logs.name
     }
   }
